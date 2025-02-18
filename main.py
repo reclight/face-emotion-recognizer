@@ -1,6 +1,7 @@
 import cv2
 import mediapipe as mp
 from fer import FER
+import time  # Import time module for delay
 
 # Initialize face detection and emotion recognition
 mp_face_detection = mp.solutions.face_detection
@@ -9,7 +10,7 @@ emotion_detector = FER(mtcnn=True)
 
 print('hi')
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 print('hi')
 
 with mp_face_detection.FaceDetection(model_selection=1, min_detection_confidence=0.5) as face_detection:
@@ -36,11 +37,14 @@ with mp_face_detection.FaceDetection(model_selection=1, min_detection_confidence
                 
                 # Draw bounding box
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
         
         cv2.imshow('Face Emotion Detection', frame)
         
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+
+        time.sleep(1)
 
 cap.release()
 cv2.destroyAllWindows()

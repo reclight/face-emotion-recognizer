@@ -13,7 +13,9 @@ RUN apt-get update && apt-get install -y \
 COPY main.py .  
 
 # Upgrade pip and install Python dependencies  
-RUN pip install --upgrade pip && pip install tensorflow-gpu opencv-python mediapipe  
+RUN pip install --upgrade pip  
+RUN pip install --no-cache-dir numpy==1.23.5 moviepy==1.0.3  # Ensure a stable NumPy version  
+RUN pip install --no-cache-dir tensorflow-gpu opencv-python mediapipe fer
 
 # Set the command to run the script  
 CMD ["python", "./main.py"]
